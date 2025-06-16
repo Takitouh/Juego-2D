@@ -55,32 +55,35 @@ public class Player extends Entity {
     public void update(){
         //We sum or substract the playerSpeed of the position player in X, Y when some key of WASD is pressed
         //And modify the direction
-        if (keyHand.upKey){
-            direction = "up";
-            y -= speed;
-        }
-        if (keyHand.downKey){
-            direction = "down";
-            y += speed;
-        }
-        if (keyHand.leftKey){
-            direction = "left";
-            x -= speed;
-        }
-        if (keyHand.rightKey){
-            direction = "right";
-            x += speed;
+        if(keyHand.upKey || keyHand.downKey || keyHand.leftKey || keyHand.rightKey){
+            if (keyHand.upKey){
+                direction = "up";
+                y -= speed;
+            }
+            if (keyHand.downKey){
+                direction = "down";
+                y += speed;
+            }
+            if (keyHand.leftKey){
+                direction = "left";
+                x -= speed;
+            }
+            if (keyHand.rightKey){
+                direction = "right";
+                x += speed;
+            }
+
+            spriteCount++;
+            if(spriteCount > 15) {
+                if(spriteNum == 1){
+                    spriteNum = 2;
+                } else if(spriteNum == 2) {
+                    spriteNum = 1;
+                }
+                spriteCount = 0;
+            }
         }
 
-        spriteCount++;
-        if(spriteCount > 15) {
-            if(spriteNum == 1){
-                spriteNum = 2;
-            } else if(spriteNum == 2) {
-                spriteNum = 1;
-            }
-            spriteCount = 0;
-        }
 
     }
     public void draw(Graphics2D g2d){
