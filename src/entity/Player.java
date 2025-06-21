@@ -15,20 +15,21 @@ public class Player extends Entity {
     public KeyHandler keyHand;
     public BufferedImage bWalk1, bWalk2, fWalk1, fWalk2,  lWalk1, lWalk2, rWalk1, rWalk2;
     public String direction;
-
-    public Player() {
-    }
+    public final int screenX;
+    public final int screenY;
 
     public Player(GamePanel gamePanel, KeyHandler keyHand) {
         this.gamePanel = gamePanel;
         this.keyHand = keyHand;
+        this.screenX = gamePanel.screenWidth / 2 - (gamePanel.TileSize/2);
+        this.screenY = gamePanel.screenHeight / 2 - (gamePanel.TileSize/2);
         setdefaultValues();
         getplayerImage();
     }
 
     public void setdefaultValues(){
-        x = 100;
-        y = 100;
+        worldX = gamePanel.TileSize * 23;
+        worldY = gamePanel.TileSize * 21;
         speed = 3;
         direction = "down";
     }
@@ -58,19 +59,19 @@ public class Player extends Entity {
         if(keyHand.upKey || keyHand.downKey || keyHand.leftKey || keyHand.rightKey){
             if (keyHand.upKey){
                 direction = "up";
-                y -= speed;
+                worldY -= speed;
             }
             if (keyHand.downKey){
                 direction = "down";
-                y += speed;
+                worldY += speed;
             }
             if (keyHand.leftKey){
                 direction = "left";
-                x -= speed;
+                worldX -= speed;
             }
             if (keyHand.rightKey){
                 direction = "right";
-                x += speed;
+                worldX += speed;
             }
 
             spriteCount++;
@@ -115,6 +116,6 @@ public class Player extends Entity {
                  }
                  break;
         }
-          g2d.drawImage(img, x, y, gamePanel.TileSize, gamePanel.TileSize, null);
+          g2d.drawImage(img, screenX, screenY, gamePanel.TileSize, gamePanel.TileSize, null);
     }
 }
