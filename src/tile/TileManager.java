@@ -58,16 +58,17 @@ public class TileManager {
          while(worldCol < gamePanel.maxworldCol && worldRow < gamePanel.maxworldRow){
              int tileNum = mapTileNum[worldCol][worldRow];
 
-         while(col < gamePanel.maxScreenCol && row < gamePanel.maxScreenRow){
-             int tileNum = mapTileNum[col][row];
-             g2d.drawImage(tiles[tileNum].img, x, y, gamePanel.TileSize, gamePanel.TileSize, null);
-             x += gamePanel.TileSize;
-             col++;
-             if(col == gamePanel.maxScreenCol){
-                 col = 0;
-                 x = 0;
-                 y += gamePanel.TileSize;
-                 row++;
+             int worldX = worldCol * gamePanel.TileSize;
+             int worldY = worldRow * gamePanel.TileSize;
+             int screenX = worldX - gamePanel.player.worldX + gamePanel.player.screenX;
+             int screenY = worldY - gamePanel.player.worldY + gamePanel.player.screenY;
+
+
+             g2d.drawImage(tiles[tileNum].img, screenX, screenY, gamePanel.TileSize, gamePanel.TileSize, null);
+             worldCol++;
+             if(worldCol == gamePanel.maxworldCol){
+                 worldCol = 0;
+                 worldRow++;
              }
          }
     }
