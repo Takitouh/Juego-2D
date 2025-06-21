@@ -52,10 +52,11 @@ public class TileManager {
           }
     }
     public void draw(Graphics g2d){
-         int col = 0;
-         int row = 0;
-         int x = 0;
-         int y = 0;
+         int worldCol = 0;
+         int worldRow = 0;
+
+         while(worldCol < gamePanel.maxworldCol && worldRow < gamePanel.maxworldRow){
+             int tileNum = mapTileNum[worldCol][worldRow];
 
          while(col < gamePanel.maxScreenCol && row < gamePanel.maxScreenRow){
              int tileNum = mapTileNum[col][row];
