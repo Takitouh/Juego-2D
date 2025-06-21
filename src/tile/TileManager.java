@@ -80,10 +80,10 @@ public class TileManager {
             int col = 0;
             int row = 0;
 
-            while(col < gamePanel.maxScreenCol && row < gamePanel.maxScreenRow){
+            while(col < gamePanel.maxworldCol && row < gamePanel.maxworldRow){
                 String line = br.readLine();
 
-                while(col < gamePanel.maxScreenCol){
+                while(col < gamePanel.maxworldCol){
                     String[] numbers = line.split(" ");
 
                     int num = Integer.parseInt(numbers[col]);
@@ -91,7 +91,7 @@ public class TileManager {
                     mapTileNum[col][row] = num;
                     col++;
                 }
-                 if(col == gamePanel.maxScreenCol){
+                 if(col == gamePanel.maxworldCol){
                      col = 0;
                      row++;
                  }
