@@ -73,7 +73,32 @@ public class Player extends Entity {
             }
             if (keyHand.rightKey){
                 direction = "right";
-                worldX += speed;
+            }
+            //CHECK TILE COLLISION
+            collisionOn = false;
+            gamePanel.collisionCheck.checkTile(this);
+
+            //IF COLLISION IS FALSE THE PLAYER CAN MOVE
+            if (!gamePanel.player.collisionOn) {
+                switch (direction) {
+                    case "up":
+                        worldY -= speed;
+
+                        break;
+                    case "down":
+                        worldY += speed;
+
+                        break;
+                    case "left":
+                        worldX -= speed;
+
+                        break;
+                    case "right":
+                        worldX += speed;
+
+                        break;
+
+                }
             }
 
             spriteCount++;
