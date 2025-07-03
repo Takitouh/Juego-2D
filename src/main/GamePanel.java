@@ -1,6 +1,7 @@
 package main;
 
 import entity.Player;
+import object.SuperObject;
 import tile.TileManager;
 
 import javax.swing.*;
@@ -11,17 +12,17 @@ public class GamePanel extends JPanel implements Runnable {
     //     SCREEN SETTINGS
     public final int originalTileSize = 16; //16x16
     public final int scale = 3;
-    public final int TileSize = originalTileSize * scale; //48x48
+    public final int tileSize = originalTileSize * scale; //48x48
     public final int maxScreenCol = 16;
     public final int maxScreenRow = 12;
-    public final int screenWidth = maxScreenCol * TileSize; //768 pixels
-    public final int screenHeight = maxScreenRow * TileSize; //576 pixels
+    public final int screenWidth = maxScreenCol * tileSize; //768 pixels
+    public final int screenHeight = maxScreenRow * tileSize; //576 pixels
 
     //      WORLD SETTINGS
     public final int maxworldCol = 50;
     public final int maxworldRow = 50;
-    public final int maxworldWidth = TileSize * maxScreenCol;
-    public final int maxworldHeight = TileSize * maxScreenRow;
+    public final int maxworldWidth = tileSize * maxScreenCol;
+    public final int maxworldHeight = tileSize * maxScreenRow;
 
 
     //FPS
@@ -31,6 +32,8 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler keyHand = new KeyHandler();
     public CollisionCheck collisionCheck = new CollisionCheck(this);
     public Player player = new Player(this, keyHand);
+    public SuperObject[] sObjects = new SuperObject[10];
+    public AssetSetter assetSetter = new AssetSetter(this);
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -42,6 +45,10 @@ public class GamePanel extends JPanel implements Runnable {
     public void starGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
+    }
+
+    public void setupGame(){
+        assetSetter.setObject();
     }
 
 // Sleep time method:
@@ -117,7 +124,7 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
 
         Graphics2D g2d = (Graphics2D) g;
-
+        //TILES
         tileMan.draw(g2d);
         //OBJECTS
         for (SuperObject sObject : sObjects) {
