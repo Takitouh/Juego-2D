@@ -13,10 +13,11 @@ public class Player extends Entity {
 
     public GamePanel gamePanel;
     public KeyHandler keyHand;
-    public BufferedImage bWalk1, bWalk2, fWalk1, fWalk2,  lWalk1, lWalk2, rWalk1, rWalk2;
+    public BufferedImage bWalk1, bWalk2, fWalk1, fWalk2, lWalk1, lWalk2, rWalk1, rWalk2;
     public String direction;
     public final int screenX;
     public final int screenY;
+
 
     public Player(GamePanel gamePanel, KeyHandler keyHand) {
         this.gamePanel = gamePanel;
@@ -29,15 +30,14 @@ public class Player extends Entity {
         getplayerImage();
     }
 
-    public void setdefaultValues(){
-        worldX = gamePanel.TileSize * 23;
-        worldY = gamePanel.TileSize * 21;
+    public void setdefaultValues() {
+        worldX = gamePanel.tileSize * 4;
+        worldY = gamePanel.tileSize * 3;
         speed = 3;
         direction = "down";
     }
 
-    public void getplayerImage()
-    {
+    public void getplayerImage() {
         try {
 //Load the sprites
             bWalk1 = ImageIO.read(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("player/BackWalk_1.png")));
@@ -55,23 +55,21 @@ public class Player extends Entity {
 
 
     }
-    public void update(){
+
+    public void update() {
         //We sum or substract the playerSpeed of the position player in X, Y when some key of WASD is pressed
         //And modify the direction
-        if(keyHand.upKey || keyHand.downKey || keyHand.leftKey || keyHand.rightKey){
-            if (keyHand.upKey){
+        if (keyHand.upKey || keyHand.downKey || keyHand.leftKey || keyHand.rightKey) {
+            if (keyHand.upKey) {
                 direction = "up";
-                worldY -= speed;
             }
-            if (keyHand.downKey){
+            if (keyHand.downKey) {
                 direction = "down";
-                worldY += speed;
             }
-            if (keyHand.leftKey){
+            if (keyHand.leftKey) {
                 direction = "left";
-                worldX -= speed;
             }
-            if (keyHand.rightKey){
+            if (keyHand.rightKey) {
                 direction = "right";
             }
             //CHECK TILE COLLISION
@@ -102,10 +100,10 @@ public class Player extends Entity {
             }
 
             spriteCount++;
-            if(spriteCount > 15) {
-                if(spriteNum == 1){
+            if (spriteCount > 15) {
+                if (spriteNum == 1) {
                     spriteNum = 2;
-                } else if(spriteNum == 2) {
+                } else if (spriteNum == 2) {
                     spriteNum = 1;
                 }
                 spriteCount = 0;
@@ -114,35 +112,40 @@ public class Player extends Entity {
 
 
     }
-    public void draw(Graphics2D g2d){
+
+    public void draw(Graphics2D g2d) {
 //According to the direction one image will load
         BufferedImage img = null;
-             switch (direction) {
-                 case "up" : if(spriteNum == 1){
-                img = bWalk1;
-                 } else if(spriteNum == 2){
-                     img = bWalk2;
-                 }
-                 break;
-                 case "down" : if(spriteNum == 1){
-                     img = fWalk1;
-                 } else if(spriteNum == 2){
-                     img = fWalk2;
-                 }
-                 break;
-                 case "left" : if (spriteNum == 1){
-                     img = lWalk1;
-                 } else if(spriteNum == 2){
-                     img = lWalk2;
-                 }
-                 break;
-                 case "right" : if (spriteNum == 1){
-                     img = rWalk1;
-                 }else if (spriteNum == 2){
-                     img = rWalk2;
-                 }
-                 break;
+        switch (direction) {
+            case "up":
+                if (spriteNum == 1) {
+                    img = bWalk1;
+                } else if (spriteNum == 2) {
+                    img = bWalk2;
+                }
+                break;
+            case "down":
+                if (spriteNum == 1) {
+                    img = fWalk1;
+                } else if (spriteNum == 2) {
+                    img = fWalk2;
+                }
+                break;
+            case "left":
+                if (spriteNum == 1) {
+                    img = lWalk1;
+                } else if (spriteNum == 2) {
+                    img = lWalk2;
+                }
+                break;
+            case "right":
+                if (spriteNum == 1) {
+                    img = rWalk1;
+                } else if (spriteNum == 2) {
+                    img = rWalk2;
+                }
+                break;
         }
-          g2d.drawImage(img, screenX, screenY, gamePanel.TileSize, gamePanel.TileSize, null);
+        g2d.drawImage(img, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
     }
 }
