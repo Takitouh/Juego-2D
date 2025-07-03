@@ -59,4 +59,75 @@ public class CollisionCheck {
         }
 
     }
+
+    public int checkObjectCollision(Entity entity, boolean player) {
+        int index = 999;
+        for (int i = 0; i<gamePanel.sObjects.length; i++) {
+            if (gamePanel.sObjects[i] != null) {
+                SuperObject ob = gamePanel.sObjects[i];
+
+                entity.hitBox.x = entity.worldX + entity.hitBoxDefaultX;
+                entity.hitBox.y= entity.worldY + entity.hitBoxDefaultY;
+
+                ob.hitBoxObject.x = ob.worldX + ob.hitBoxDefaultX;
+                ob.hitBoxObject.y = ob.worldY + ob.hitBoxDefaultY;
+
+                switch (entity.direction) {
+                    case "up":
+                        entity.hitBox.y -= entity.speed;
+                        if (entity.hitBox.intersects(ob.hitBoxObject)){
+                            if (ob.collision){
+                                entity.collisionOn = true;
+                            }
+                            if (player){
+                                index = i;
+                            }
+                        }
+                        break;
+                    case "down":
+                        entity.hitBox.y += entity.speed;
+                        if (entity.hitBox.intersects(ob.hitBoxObject)){
+                            if (ob.collision){
+                                entity.collisionOn = true;
+                            }
+                            if (player){
+                                index = i;
+                            }
+                        }
+                        break;
+                    case "left":
+                        entity.hitBox.x -= entity.speed;
+                        if (entity.hitBox.intersects(ob.hitBoxObject)){
+                            if (ob.collision){
+                                entity.collisionOn = true;
+                            }
+                            if (player){
+                                index = i;
+                            }
+                        }
+                        break;
+                    case "right":
+                        entity.hitBox.x += entity.speed;
+                        if (entity.hitBox.intersects(ob.hitBoxObject)){
+                            if (ob.collision){
+                                entity.collisionOn = true;
+                            }
+                            if (player){
+                                index = i;
+                            }
+                        }
+                        break;
+
+                }
+                entity.hitBox.x = entity.hitBoxDefaultX;
+                entity.hitBox.y = entity.hitBoxDefaultY;
+
+                ob.hitBoxObject.x = ob.hitBoxDefaultX;
+                ob.hitBoxObject.y = ob.hitBoxDefaultY;
+            }
+        }
+
+        return index;
+    }
+
 }
