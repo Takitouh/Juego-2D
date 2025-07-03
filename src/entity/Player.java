@@ -14,18 +14,20 @@ public class Player extends Entity {
     public GamePanel gamePanel;
     public KeyHandler keyHand;
     public BufferedImage bWalk1, bWalk2, fWalk1, fWalk2, lWalk1, lWalk2, rWalk1, rWalk2;
-    public String direction;
     public final int screenX;
     public final int screenY;
+    public int hasKey = 0;
 
 
     public Player(GamePanel gamePanel, KeyHandler keyHand) {
         this.gamePanel = gamePanel;
         this.keyHand = keyHand;
 
-        this.hitBox = new Rectangle(9, 16, 30,  32);
+        this.hitBox = new Rectangle(9, 16, 30, 32);
         this.screenX = gamePanel.screenWidth / 2 - (gamePanel.tileSize / 2);
         this.screenY = gamePanel.screenHeight / 2 - (gamePanel.tileSize / 2);
+        this.hitBoxDefaultX = hitBox.x;
+        this.hitBoxDefaultY = hitBox.y;
         setdefaultValues();
         getplayerImage();
     }
@@ -75,6 +77,10 @@ public class Player extends Entity {
             //CHECK TILE COLLISION
             collisionOn = false;
             gamePanel.collisionCheck.checkTile(this);
+
+            //CHECK OBJECT COLLISION
+            int objIndex = gamePanel.collisionCheck.checkObjectCollision(this, true);
+            this.pickUpObject(objIndex);
 
             //IF COLLISION IS FALSE THE PLAYER CAN MOVE
             if (!gamePanel.player.collisionOn) {
