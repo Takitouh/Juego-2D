@@ -148,4 +148,24 @@ public class Player extends Entity {
         }
         g2d.drawImage(img, screenX, screenY, gamePanel.tileSize, gamePanel.tileSize, null);
     }
+
+    public void pickUpObject(int i) {
+        if (i != 999) {
+            String objName = gamePanel.sObjects[i].name;
+
+            switch (objName) {
+                case "Key":
+                    hasKey++;
+                    gamePanel.sObjects[i] = null;
+                    break;
+                case "Door":
+                    if (hasKey > 0) {
+                        gamePanel.sObjects[i] = null;
+                        hasKey--;
+                    }
+                    break;
+
+            }
+        }
+    }
 }
