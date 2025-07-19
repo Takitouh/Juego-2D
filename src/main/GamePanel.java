@@ -52,12 +52,12 @@ public class GamePanel extends JPanel implements Runnable {
         gameThread.start();
     }
 
-    public void setupGame(){
+    public void setupGame() {
         assetSetter.setObject();
         playMusic(0);
     }
 
-// Sleep time method:
+    // Sleep time method:
 //    @Override
 //    public void run() {
 //        double drawInterval = System.nanoTime() / 1000000000.0;
@@ -91,39 +91,37 @@ public class GamePanel extends JPanel implements Runnable {
         long timer = 0;
         int drawCount = 0;
 
-        while(gameThread.isAlive()){
+        while (gameThread.isAlive()) {
 
 
-        currentTime = System.nanoTime();
+            currentTime = System.nanoTime();
 
-        delta += (currentTime - lastTime) / drawInterval; // The time that has been passed between the lastTime and currentime
+            delta += (currentTime - lastTime) / drawInterval; // The time that has been passed between the lastTime and currentime
             //between the drawInterval
 
-        timer += currentTime - lastTime;
+            timer += currentTime - lastTime;
 
-        lastTime = currentTime;
+            lastTime = currentTime;
 
-        if (delta >= 1) {
-            update();
-            repaint();
-            delta--;
-            drawCount++;
-        }
-        //This display the current FPS of the game
+            if (delta >= 1) {
+                update();
+                repaint();
+                delta--;
+                drawCount++;
+            }
+            //This display the current FPS of the game
             //If the timer is mayor or equal to 1, because is the FPS
-        if (timer >= 1000000000) {
-            System.out.println("FPS: " + drawCount);
-            drawCount = 0;
-            timer = 0;
-        }
-
-
+            if (timer >= 1000000000) {
+                System.out.println("FPS: " + drawCount);
+                drawCount = 0;
+                timer = 0;
+            }
         }
     }
 
-    public void update(){
+    public void update() {
 
-      player.update();
+        player.update();
     }
 
     public void paintComponent(Graphics g) {
@@ -144,15 +142,17 @@ public class GamePanel extends JPanel implements Runnable {
         ui.draw(g2d);
     }
     public void playMusic(int i) {
-        sound.setFile(i);
-        sound.play();
-        sound.loop();
+        music.setFile(i);
+        music.play();
+        music.loop();
     }
+
     public void stopMusic() {
-        sound.stop();
+        music.stop();
     }
+
     public void playSoundEffect(int i) {
-        sound.setFile(i);
-        sound.play();
+        se.setFile(i);
+        se.play();
     }
 }
