@@ -24,7 +24,8 @@ public class GamePanel extends JPanel implements Runnable {
 
 
     //AUDIO
-    Sound sound = new Sound();
+    Sound music = new Sound();
+    Sound se = new Sound();
 
 
     //FPS
