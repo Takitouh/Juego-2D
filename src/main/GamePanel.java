@@ -21,7 +21,8 @@ public class GamePanel extends JPanel implements Runnable {
     //      WORLD SETTINGS
     public final int maxworldCol = 50;
     public final int maxworldRow = 50;
-
+    //UI
+    public UI ui = new UI(this);
 
     //AUDIO
     Sound music = new Sound();
@@ -139,6 +140,8 @@ public class GamePanel extends JPanel implements Runnable {
         }
         //PLAYER
         player.draw(g2d);
+        //UI
+        ui.draw(g2d);
     }
     public void playMusic(int i) {
         sound.setFile(i);
