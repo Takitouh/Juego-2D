@@ -164,20 +164,33 @@ public class Player extends Entity {
                     hasKey++;
                     gamePanel.playSoundEffect(2);
                     gamePanel.sObjects[i] = null;
+                    gamePanel.ui.showMessage("You obtained a key");
                     break;
                 case "Door":
                     if (hasKey > 0) {
                         gamePanel.playSoundEffect(1);
                         gamePanel.sObjects[i] = null;
                         hasKey--;
+                    } else {
+                        gamePanel.ui.showMessage("You need a key to do this");
                     }
                     break;
                 case "Sketcher":
                     speed++;
                     gamePanel.playSoundEffect(3);
                     gamePanel.sObjects[i] = null;
+                    gamePanel.ui.showMessage("¡Velocity improved!");
                     break;
-
+                case "Book":
+                    hasBook++;
+                    gamePanel.sObjects[i] = null;
+                    gamePanel.ui.showMessage("You learned something new...");
+                    break;
+                case "Chest":
+                    gamePanel.ui.finishGame = true;
+                    gamePanel.stopMusic();
+                    gamePanel.playSoundEffect(1);
+                    break;
             }
         }
     }
